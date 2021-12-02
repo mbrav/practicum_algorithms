@@ -25,8 +25,8 @@ def bad_realtor(arr):
 
     return " ".join(list(map(str, result)))
 
+
 # Аналогично про исполняемый код в верхний уровень
-
-
-n, arr = in_put()
-print(bad_realtor(arr))
+if __name__ == "__main__":
+    n, arr = in_put()
+    print(bad_realtor(arr))
