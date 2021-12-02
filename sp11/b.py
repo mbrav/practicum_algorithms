@@ -1,3 +1,5 @@
+# 59690791
+
 from collections import Counter
 
 
@@ -25,10 +27,6 @@ def game_sim(key, arr):
                 score += 1
     return score
 
-
-# Исполняемый код лучше выносить в верхний уровень. Чтобы при импорте из текущего модуля не запускалось всё, что здесь описано
-# https://docs.python.org/3/library/__main__.html
-# https://ru.stackoverflow.com/q/515852
 
 if __name__ == "__main__":
     n, arr = in_put()

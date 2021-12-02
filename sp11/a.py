@@ -1,3 +1,5 @@
+# 59448108
+
 def in_put():
     x = int(input())
     y = list(map(int, input().split()))
@@ -26,7 +28,6 @@ def bad_realtor(arr):
     return " ".join(list(map(str, result)))
 
 
-# Аналогично про исполняемый код в верхний уровень
 if __name__ == "__main__":
     n, arr = in_put()
     print(bad_realtor(arr))
