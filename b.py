@@ -26,5 +26,8 @@ def game_sim(key, arr):
     return score
 
 
+# Исполняемый код лучше выносить в верхний уровень. Чтобы при импорте из текущего модуля не запускалось всё, что здесь описано
+# https://docs.python.org/3/library/__main__.html
+# https://ru.stackoverflow.com/q/515852
 n, arr = in_put()
 print(game_sim(n, arr))
