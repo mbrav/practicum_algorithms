@@ -1,8 +1,8 @@
-# 61428598
+# 61555369
 
 import operator
-from collections import deque
 from typing import List, Union
+
 Number = Union[int, float]
 
 operations = {
@@ -10,7 +10,6 @@ operations = {
     '-': operator.sub,
     '*': operator.mul,
     '/': operator.floordiv,
-    # '/': operator.truediv,
 }
 
 
@@ -33,26 +32,6 @@ def calc(operation: str, *args: Number) -> Number:
     return result
 
 
-class StackMinimalochka():
-    def __init__(self):
-        self.qeue = deque()
-
-    def push(self, val):
-        return self.qeue.append(val)
-
-    def pop(self):
-        if self.count():
-            popped = self.qeue.pop()
-            return popped
-        print('error')
-
-    def count(self):
-        return len(self.qeue)
-
-    def __str__(self):
-        return str(f'{len(self.qeue)} objects in Stack')
-
-
 def in_put(string: str = None) -> List:
     if string:
         return string.split()
@@ -62,15 +41,15 @@ def in_put(string: str = None) -> List:
 if __name__ == '__main__':
     # inputs = in_put('2 5 - 4 /')
     inputs = in_put()
-    stack = StackMinimalochka()
+    stack = []
     for i in inputs:
         if i in operations:
             y = stack.pop()
             x = stack.pop()
             result = calc(i, x, y)
-            stack.push(result)
+            stack.append(result)
         else:
-            stack.push(int(i))
+            stack.append(int(i))
     result = int(stack.pop())
 
     print(result)

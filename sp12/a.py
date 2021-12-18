@@ -1,4 +1,4 @@
-# 61421264
+# 61559049
 
 import operator
 from collections import deque
@@ -10,10 +10,14 @@ def in_put():
     obj = SuperMegaDeck(size=y)
     for i in range(x):
         args = input().split()
-        f = operator.methodcaller(args[0])
-        if len(args) == 2:
-            f = operator.methodcaller(args[0], int(args[1]))
-        f(obj)
+        if (callable(getattr(obj, args[0], None))):
+            f = operator.methodcaller(args[0])
+            if len(args) == 2:
+                f = operator.methodcaller(args[0], int(args[1]))
+            f(obj)
+        else:
+            raise AttributeError(
+                f'Нет комманды "{args[0]}" в объекте "{type(obj).__name__}"')
     return x, y
 
 
