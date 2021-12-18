@@ -1,4 +1,4 @@
-# 61555369
+# 61687719
 
 import operator
 from typing import List, Union
@@ -32,6 +32,26 @@ def calc(operation: str, *args: Number) -> Number:
     return result
 
 
+class QueueMinimalochka():
+    def __init__(self):
+        self.queue = []
+
+    def append(self, val):
+        return self.queue.append(val)
+
+    def pop(self):
+        if self.count():
+            popped = self.queue.pop()
+            return popped
+        print('error')
+
+    def count(self):
+        return len(self.queue)
+
+    def __str__(self):
+        return str(f'{len(self.queue)} objects in Queue')
+
+
 def in_put(string: str = None) -> List:
     if string:
         return string.split()
@@ -39,17 +59,17 @@ def in_put(string: str = None) -> List:
 
 
 if __name__ == '__main__':
-    # inputs = in_put('2 5 - 4 /')
+    # inputs = in_put('2 5 - 4 /')  # -1
     inputs = in_put()
-    stack = []
+    queue = QueueMinimalochka()
     for i in inputs:
         if i in operations:
-            y = stack.pop()
-            x = stack.pop()
+            y = queue.pop()
+            x = queue.pop()
             result = calc(i, x, y)
-            stack.append(result)
+            queue.append(result)
         else:
-            stack.append(int(i))
-    result = int(stack.pop())
+            queue.append(int(i))
+    result = int(queue.pop())
 
     print(result)
