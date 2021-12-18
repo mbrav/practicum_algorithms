@@ -1,4 +1,4 @@
-# 61687719
+# 61691770
 
 import operator
 from typing import List, Union
@@ -58,9 +58,7 @@ def in_put(string: str = None) -> List:
     return input().split()
 
 
-if __name__ == '__main__':
-    # inputs = in_put('2 5 - 4 /')  # -1
-    inputs = in_put()
+def run(inputs: List[str]) -> Number:
     queue = QueueMinimalochka()
     for i in inputs:
         if i in operations:
@@ -70,6 +68,10 @@ if __name__ == '__main__':
             queue.append(result)
         else:
             queue.append(int(i))
-    result = int(queue.pop())
+    return int(queue.pop())
 
+
+if __name__ == '__main__':
+    inputs = in_put()
+    result = run(inputs)
     print(result)
