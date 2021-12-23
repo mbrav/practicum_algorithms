@@ -8,6 +8,7 @@ import e
 import f
 import g
 import h
+import i
 
 # cProfile.run('a.main()')
 # cProfile.run('b.main()')
@@ -17,6 +18,7 @@ import h
 # cProfile.run('f.main()')
 # cProfile.run('g.main()')
 # cProfile.run('h.main()')
+# cProfile.run('i.main()')
 
 
 def repeater(func, repeat: int):
@@ -25,5 +27,6 @@ def repeater(func, repeat: int):
 
 
 # cProfile.run('repeater(f.main, 1000)')
-cProfile.run('repeater(g.main, 1000)')
-# cProfile.run('repeater(h.main, 10000)')
+# cProfile.run('repeater(g.main, 1000)')
+# cProfile.run('repeater(h.main, 1000)')
+cProfile.run('repeater(i.main, 1000)')
