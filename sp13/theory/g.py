@@ -1,4 +1,4 @@
-# nnnnnnn
+# 62393299
 
 def in_put(string: str = None):
     def str_or_arr(st: str):
@@ -6,13 +6,12 @@ def in_put(string: str = None):
         if len(st) > 1:
             return st
         return st[0]
-
     if string:
         return str_or_arr(string)
     return str_or_arr(input())
 
 
-def main(clothes: list = None):
+def main(clothes: list = []):
     if not clothes and not len(clothes) == 0:
         clothes = in_put('0 2 1 2 0 0 1')
     clothes = sorted(clothes)
