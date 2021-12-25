@@ -52,7 +52,7 @@ def main():
     numbers = list(map(lambda x: int(x), c))
     result = merge_sort(numbers, 0, len(numbers))
     result = list(map(lambda x: str(x), result))
-    # print(' '.join(result))
+    print(' '.join(result))
 
 
 if __name__ == '__main__':
