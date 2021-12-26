@@ -1,5 +1,5 @@
 # 62919854
-
+# Отравля a.py, b.py ещё решаю
 from bisect import bisect_left
 
 
@@ -12,6 +12,21 @@ def in_put(string: str = None):
     if string:
         return str_or_arr(string)
     return str_or_arr(input())
+
+
+# Бинарный поиск
+def binary_search(arr: list, target: int):
+    left = mid = 0
+    right = len(arr) - 1
+    while left <= right:
+        mid = (right + left) // 2
+        if arr[mid] < target:
+            left = mid + 1
+        elif arr[mid] > target:
+            right = mid - 1
+        else:
+            return mid
+    return -1
 
 
 # Рекурсивный бинарный поиск
@@ -27,57 +42,60 @@ def binary_recursive(arr: list, target: int, left: int, right: int):
     return -1
 
 
-# Поиск индекса начала плохой части списка
-def get_bad_index(arr: list) -> int:
-    begin = 0
-    for i, val in enumerate(arr[:-1]):
-        if val > arr[i+1]:
-            begin = i+1
-            break
-    return begin
+# Бинарный поиск индекса начала плохой части списка
+def get_bad_index(arr: list, target: int):
+    if len(arr) < 3:
+        if target in arr:
+            return arr.index(target)
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        middle = (left + right) // 2
+        if arr[middle] == target:
+            return middle
+        if arr[middle] < target:
+            left = middle + 1
+        elif arr[middle] > target:
+            right = middle - 1
 
 
 # Рекурсивный бинарный поиск индекса начала плохой части списка
-def get_bad_index_bin(arr: list, target: int, left: int, right: int):
-    if left <= right:
-        mid = (left + right) // 2
-        if arr[mid] == target:
-            return mid
-        if arr[mid] < target:
-            return binary_recursive(arr, target, mid + 1, right)
-        elif arr[mid] > target:
-            return binary_recursive(arr, target, left, mid - 1)
-    return -1
+def get_bad_index_bin(arr: list):
+    def run(array: list, left: int, right: int):
+        if left <= right:
+            mid = (left + right) // 2
+            if array[mid] > array[mid+1]:
+                return mid
+            if array[left] > array[mid]:
+                return run(array, left+1, mid)
+            elif array[mid] > array[left]:
+                return run(array, mid, right-1)
+        return -1
+    return run(arr, 0, len(arr)-1)
 
 
 def broken_search(nums: list, target: int) -> int:
     #  Your code
     #  “ヽ(´▽｀)ノ”
 
-    # if len(nums) < 500:
-    #     if target in nums:
-    #         return nums.index(target)
-    #     return -1
+    # bad_i = get_bad_index_bin(nums)
+    # if bad_i != -1:
+    #     badnums = nums[bad_i:]
+    #     found = binary_recursive(badnums, target, 0, len(badnums) - 1)
+    #     if found != -1:
+    #         return found + bad_i
+    #     nums = nums[:-bad_i]
 
-    bad_i = get_bad_index(nums)
-    if bad_i:
-        badnums = nums[bad_i:]
-        found = binary_recursive(badnums, target, 0, len(badnums) - 1)
-        if found != -1:
-            return found + bad_i
-        nums = nums[:-bad_i]
-
-    return binary_recursive(nums, target, 0, len(nums) - 1)
+    return binary_search(nums, target)
+    # return binary_recursive(nums, target, 0, len(nums) - 1)
 
 
 def main(nums: list = None, target: int = None):
     if not nums or not target:
         nums = in_put(
-            '3271 3298 3331 3397 3407 3524 3584 3632 3734 3797 3942 4000 4180 4437 4464 4481 4525 4608 4645 4803 4804 4884 4931 4965 5017 5391 5453 5472 5671 5681 5959 6045 6058 6301 6529 6621 6961 7219 7291 7372 7425 7517 7600 7731 7827 7844 7987 8158 8169 8265 8353 8519 8551 8588 8635 9209 9301 9308 9336 9375 9422 9586 9620 9752 9776 9845 9906 9918 16 25 45 152 199 309 423 614 644 678 681 725 825 830 936 1110 1333 1413 1617 1895 1938 2107 2144 2184 2490 2517 2769 2897 2970 3023 3112 3156')
-        target = in_put('25')
+            '5 1')
+        target = in_put('1')
     return broken_search(nums, target)  # 69
 
 
 if __name__ == '__main__':
     print(main())
-    pass
