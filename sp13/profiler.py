@@ -3,8 +3,7 @@ import functools
 import random
 import time
 
-from a import main as a_main
-from b import main as b_main
+from a import broken_search
 
 
 def timer(func):
@@ -40,6 +39,13 @@ def repeater(func, repeat: int):
         func()
 
 
+def int_arr(nums: int, begin: int = 0) -> list[int]:
+    arr = []
+    for i in range(begin, begin + nums):
+        arr.append(i)
+    return arr
+
+
 def rand_int_arr(nums: int) -> list[int]:
     arr = []
     for i in range(nums):
@@ -47,8 +53,8 @@ def rand_int_arr(nums: int) -> list[int]:
     return arr
 
 
-# cProfile.run('a_main()')
-# cProfile.run('b.main()')
-
-cProfile.run('repeater(a_main, 1000)')
-# cProfile.run('repeater(b.main, 1000)')
+bad_array = int_arr(174713, 300000) + int_arr(100000)
+# target = bad_array[random.randint(0, len(bad_array))]
+target = bad_array[193456]
+cProfile.run('broken_search(bad_array, target)')
+print(broken_search(bad_array, target))

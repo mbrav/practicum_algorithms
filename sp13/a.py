@@ -1,5 +1,21 @@
-# 62919854
-# Отравля a.py, b.py ещё решаю
+# 63183231
+
+# Отравляю a.py, b.py ещё решаю
+# Извиняюсь, до этого отправил пустое решение
+#
+# Мне совсем не ясно почему я получаю TL ошибку
+# Я реализовал два поиска: binary_search() и get_bad_index()
+# Оба используют бинарный поиск
+# Второй используют модифицированию версию бинарного поиска
+# Тесты, которые я мог проверить, все работают
+# По моим тестам они явно работают за O(log n):
+# Если посмотреть profiler.py:
+# То там массив с 200'000 цифрами спокойно обрабатывается за <0.001 секунды
+# Но мне не ясно почему я получаю TL в 1 секунду, а проверить не могу так как:
+# "File is too long to be displayed fully"
+#
+# С праздниками!
+
 from bisect import bisect_left
 
 
@@ -29,73 +45,39 @@ def binary_search(arr: list, target: int):
     return -1
 
 
-# Рекурсивный бинарный поиск
-def binary_recursive(arr: list, target: int, left: int, right: int):
-    if left <= right:
-        mid = (left + right) // 2
-        if arr[mid] == target:
-            return mid
-        if arr[mid] < target:
-            return binary_recursive(arr, target, mid + 1, right)
-        elif arr[mid] > target:
-            return binary_recursive(arr, target, left, mid - 1)
-    return -1
-
-
 # Бинарный поиск индекса начала плохой части списка
-def get_bad_index(arr: list, target: int):
-    if len(arr) < 3:
-        if target in arr:
-            return arr.index(target)
-    left, right = 0, len(arr) - 1
-    while left <= right:
-        middle = (left + right) // 2
-        if arr[middle] == target:
-            return middle
-        if arr[middle] < target:
-            left = middle + 1
-        elif arr[middle] > target:
-            right = middle - 1
-
-
-# Рекурсивный бинарный поиск индекса начала плохой части списка
-def get_bad_index_bin(arr: list):
-    def run(array: list, left: int, right: int):
-        if left <= right:
-            mid = (left + right) // 2
-            if array[mid] > array[mid+1]:
-                return mid
-            if array[left] > array[mid]:
-                return run(array, left+1, mid)
-            elif array[mid] > array[left]:
-                return run(array, mid, right-1)
-        return -1
-    return run(arr, 0, len(arr)-1)
+def get_bad_index(array: list):
+    left, right = 0, len(array) - 1
+    while left != right-1:
+        mid = (left + right) // 2
+        if array[mid] > array[mid+1]:
+            return mid+1
+        if array[left] > array[mid]:
+            right = mid
+        else:
+            left = mid
+    return -1
 
 
 def broken_search(nums: list, target: int) -> int:
     #  Your code
     #  “ヽ(´▽｀)ノ”
 
-    # bad_i = get_bad_index_bin(nums)
-    # if bad_i != -1:
-    #     badnums = nums[bad_i:]
-    #     found = binary_recursive(badnums, target, 0, len(badnums) - 1)
-    #     if found != -1:
-    #         return found + bad_i
-    #     nums = nums[:-bad_i]
+    # Добавил это так как не охота голову ломать
+    # с поддержкой маленьких списков и бинарного поиска
+    # ¯\_(ツ)_/¯
+    if len(nums) < 3:
+        if target in nums:
+            return nums.index(target)
+        return -1
+
+    # Получаем индекс начала плохой части списка
+    bad_i = get_bad_index(nums)
+    if bad_i != -1:
+        found = binary_search(nums[bad_i:], target)
+        if found != -1:
+            return found + bad_i
+        # Сокращаем список с уже проверенными числами
+        nums = nums[:bad_i]
 
     return binary_search(nums, target)
-    # return binary_recursive(nums, target, 0, len(nums) - 1)
-
-
-def main(nums: list = None, target: int = None):
-    if not nums or not target:
-        nums = in_put(
-            '5 1')
-        target = in_put('1')
-    return broken_search(nums, target)  # 69
-
-
-if __name__ == '__main__':
-    print(main())
