@@ -54,7 +54,6 @@ def rand_int_arr(nums: int) -> list[int]:
 
 
 bad_array = int_arr(174713, 300000) + int_arr(100000)
-# target = bad_array[random.randint(0, len(bad_array))]
 target = bad_array[193456]
 cProfile.run('broken_search(bad_array, target)')
 print(broken_search(bad_array, target))

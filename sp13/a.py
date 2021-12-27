@@ -13,10 +13,8 @@
 # То там массив с 200'000 цифрами спокойно обрабатывается за <0.001 секунды
 # Но мне не ясно почему я получаю TL в 1 секунду, а проверить не могу так как:
 # "File is too long to be displayed fully"
-#
-# С праздниками!
 
-from bisect import bisect_left
+# С праздниками!
 
 
 def in_put(string: str = None):
