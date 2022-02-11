@@ -2,20 +2,11 @@ import unittest
 
 import a
 import b
-
-
-def in_put(string: str = None):
-    def str_or_arr(st: str):
-        st = st.split(' ')
-        if len(st) > 1:
-            return list(map(lambda x: int(x), st))
-        return int(st[0])
-    if string:
-        return str_or_arr(string)
-    return str_or_arr(input())
+from b import in_put
 
 
 class TestA(unittest.TestCase):
+    import a
 
     def test_1(self):
         inputs = in_put('19 21 100 101 1 4 5 7 12')
@@ -59,6 +50,12 @@ class TestA(unittest.TestCase):
         result = a.broken_search(inputs, x)
         assert result == int('9')
 
+    def test_8(self):
+        inputs = in_put('1 2 3 4 5 6 7 8 9 10 11 12')
+        x = in_put('10')
+        result = a.broken_search(inputs, x)
+        assert result == int('9')
+
     def test_file_19(self):
         file = open('sp13/data/a_19.txt', 'r')
         lines = file.read().split('\n')
@@ -69,12 +66,13 @@ class TestA(unittest.TestCase):
         file.close()
 
 
-# class TestB(unittest.TestCase):
+class TestB(unittest.TestCase):
 
-#     def test_1(self):
-#         inputs = b.in_put('2 5 - 4 /')
-#         result = b.run(inputs)
-#         assert result == int('-1')
+    def test_1(self):
+        inputs = b.in_put('2 5 - 4 /')
+        result = b.run(inputs)
+        assert result == int('-1')
+
 
 if __name__ == '__main__':
     unittest.main()

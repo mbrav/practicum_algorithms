@@ -50,10 +50,14 @@ def rand_int_arr(nums: int):
     return arr
 
 
-file = open('sp13/data/a_19.txt', 'r')
-lines = file.read().split('\n')
-bad_array = in_put(lines[2])
-target = lines[1]
-cProfile.run('broken_search(bad_array, target)')
+if __name__ == '__main__':
 
-# repeater(broken_search, 10000, bad_array, target)
+    file = open('sp13/data/a_19.txt', 'r')
+    lines = file.read().split('\n')
+    bad_array = in_put(lines[2])
+    target = lines[1]
+    cProfile.run('broken_search(bad_array, target)')
+
+    # repeater(broken_search, 10000, bad_array, target)
+
+
