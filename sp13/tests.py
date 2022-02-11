@@ -57,7 +57,7 @@ class TestA(unittest.TestCase):
         assert result == int('9')
 
     def test_file_19(self):
-        file = open('sp13/data/a_19.txt', 'r')
+        file = open('data/a_19.txt', 'r')
         lines = file.read().split('\n')
         inputs = in_put(lines[2])
         x = lines[1]

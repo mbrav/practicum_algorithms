@@ -4,7 +4,7 @@ import random
 import time
 
 from a import broken_search
-from tests import in_put
+from b import in_put
 
 
 def timer(func):
@@ -52,12 +52,10 @@ def rand_int_arr(nums: int):
 
 if __name__ == '__main__':
 
-    file = open('sp13/data/a_19.txt', 'r')
+    file = open('data/a_19.txt', 'r')
     lines = file.read().split('\n')
     bad_array = in_put(lines[2])
     target = lines[1]
     cProfile.run('broken_search(bad_array, target)')
 
     # repeater(broken_search, 10000, bad_array, target)
-
-
