@@ -2,7 +2,7 @@ import unittest
 
 import a
 import b
-from b import in_put
+from b import in_put, in_put_users
 
 
 class TestA(unittest.TestCase):
@@ -69,9 +69,94 @@ class TestA(unittest.TestCase):
 class TestB(unittest.TestCase):
 
     def test_1(self):
-        inputs = b.in_put('2 5 - 4 /')
-        result = b.run(inputs)
-        assert result == int('-1')
+        participants = in_put('5')
+        inputs = [
+            'alla 4 100',
+            'gena 6 1000',
+            'gosha 2 90',
+            'rita 2 90',
+            'timofey 4 80',
+        ]
+        result = ['gena', 'timofey', 'alla', 'gosha', 'rita']
+
+        users = in_put_users(participants, inputs)
+        b.quick_sort(users, 0, participants-1)
+
+        for u, user in enumerate(users[::-1]):
+            assert user.name == result[u]
+
+    def test_2(self):
+        participants = in_put('5')
+        inputs = [
+            'alla 0 10',
+            'gena 0 9',
+            'gosha 0 8',
+            'rita 0 7',
+            'timofey 0 0',
+        ]
+        result = ['timofey', 'rita', 'gosha', 'gena', 'alla']
+
+        users = in_put_users(participants, inputs)
+        b.quick_sort(users, 0, participants-1)
+
+        for u, user in enumerate(users[::-1]):
+            assert user.name == result[u]
+
+    def test_3(self):
+        participants = in_put('5')
+        inputs = [
+            'alla 0 0',
+            'gena 1 0',
+            'gosha 2 0',
+            'rita 3 0',
+            'timofey 4 0',
+        ]
+        result = ['timofey', 'rita', 'gosha', 'gena', 'alla']
+
+        users = in_put_users(participants, inputs)
+        b.quick_sort(users, 0, participants-1)
+
+        for u, user in enumerate(users[::-1]):
+            assert user.name == result[u]
+
+    def test_4(self):
+        participants = in_put('13')
+        inputs = [
+            'tufhdbi 76 58',
+            'rqyoazgbmv 59 78',
+            'qvgtrlkmyrm 35 27',
+            'tgcytmfpj 70 27',
+            'xvf 84 19',
+            'jzpnpgpcqbsmczrgvsu 30 3',
+            'evjphqnevjqakze 92 15',
+            'wwzwv 87 8',
+            'tfpiqpwmkkduhcupp 1 82',
+            'tzamkyqadmybky 5 81',
+            'amotrxgba 0 6',
+            'easfsifbzkfezn 100 28',
+            'kivdiy 70 47',
+        ]
+        result = [
+            'easfsifbzkfezn',
+            'evjphqnevjqakze',
+            'wwzwv',
+            'xvf',
+            'tufhdbi',
+            'tgcytmfpj',
+            'kivdiy',
+            'rqyoazgbmv',
+            'qvgtrlkmyrm',
+            'jzpnpgpcqbsmczrgvsu',
+            'tzamkyqadmybky',
+            'tfpiqpwmkkduhcupp',
+            'amotrxgba',
+        ]
+
+        users = in_put_users(participants, inputs)
+        b.quick_sort(users, 0, participants-1)
+
+        for u, user in enumerate(users[::-1]):
+            assert user.name == result[u]
 
 
 if __name__ == '__main__':
