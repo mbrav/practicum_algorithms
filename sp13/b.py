@@ -1,4 +1,4 @@
-# nnnnnn
+# 65091267
 
 
 def in_put(string: str = None, to_int: bool = True):
@@ -6,7 +6,7 @@ def in_put(string: str = None, to_int: bool = True):
         st = st.split(' ')
         if len(st) > 1:
             if to_int:
-            return list(map(lambda x: int(x), st))
+                return list(map(lambda x: int(x), st))
             return st
         return int(st[0])
     if string:
@@ -32,59 +32,43 @@ def in_put_users(ins: int, arr: list = None):
 class User:
     "Класс участника"
 
-    def __init__(self, name, points, penalty):
+    def __init__(self, name, score, penalty):
         self.name = name
-        self.points = points
+        self.score = score
         self.penalty = penalty
 
-    def __str__(self):
-        return f'#{self.id}\t{self.username}\t{self.tasks}\t-{self.penalty}'
+    def __lt__(self, compare):
+        if self.score != compare.score:
+            return self.score < compare.score
+
+        elif self.penalty != compare.penalty:
+            return self.penalty > compare.penalty
+        return self.name > compare.name
 
     def __str__(self) -> str:
         return self.name
 
-def partition(arr, low, high):
-    i = low - 1
-    pivot = arr[high]
-    for j in range(low, high):
-        if arr[j] <= pivot:
-            i += 1
-            arr[i], arr[j] = arr[j], arr[i]
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return i + 1
 
+def quick_sort(array, start, end):
+    def _sort(start, end):
+        pivot = start
+        for i in range(start+1, end+1):
+            if (array[i] < array[start] or array[i] == array[start]):
+                pivot += 1
+                array[i], array[pivot] = array[pivot], array[i]
+        array[pivot], array[start] = array[start], array[pivot]
+        return pivot
 
-def quick_sort(arr, low, high):
-    if low < high:
-        pi = partition(arr, low, high)
-        quick_sort(arr, low, pi - 1)
-        quick_sort(arr, pi + 1, high)
+    if start < end:
+        pivot = _sort(start, end)
+        quick_sort(array, start, pivot-1)
+        quick_sort(array, pivot+1, end)
 
-def in_put_multi(ins: int):
-    users = []
-    for i in range(int(ins)):
-        strings = input().split(' ')
-        new_part = User(
-            id=i,
-            username=str(strings[0]),
-            tasks=int(strings[1]),
-            penalty=int(strings[2])
-        )
-        users.append(new_part)
-    return users
 
 if __name__ == '__main__':
-    participants = in_put('5')
+    participants = in_put()
 
-    inputs = [
-        'alla 4 100',
-        'gena 6 1000',
-        'gosha 2 90',
-        'rita 2 90',
-        'timofey 4 80',
-    ]
-
-    users = in_put_users(participants, inputs)
+    users = in_put_users(participants)
 
     quick_sort(users, 0, participants-1)
     print(*users[::-1], sep='\n')
