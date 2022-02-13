@@ -1,9 +1,6 @@
 # 63389117
 
 def broken_search(nums: list, target: int) -> int:
-    #  Your code
-    #  “ヽ(´▽｀)ノ”
-
     target = int(target)
 
     if len(nums) < 3:
@@ -33,7 +30,6 @@ def broken_search(nums: list, target: int) -> int:
         left, right = 0, len(array) - 1
         while left != right-1:
             mid = (left + right) // 2
-            # print(left, mid, right)
             if int(array[mid]) > int(array[mid+1]):
                 return mid+1
             if int(array[left]) > int(array[mid]):

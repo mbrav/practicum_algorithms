@@ -1,4 +1,4 @@
-# 65091267
+# 65091587
 
 
 def in_put(string: str = None, to_int: bool = True):
@@ -40,8 +40,7 @@ class User:
     def __lt__(self, compare):
         if self.score != compare.score:
             return self.score < compare.score
-
-        elif self.penalty != compare.penalty:
+        if self.penalty != compare.penalty:
             return self.penalty > compare.penalty
         return self.name > compare.name
 
