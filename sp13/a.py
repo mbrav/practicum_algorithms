@@ -1,50 +1,45 @@
-# 63389117
+# 65136101
 
-def broken_search(nums: list, target: int) -> int:
-    target = int(target)
+def in_put(string: str = None, to_int: bool = True):
+    def str_or_arr(st: str):
+        st = st.split(' ')
+        if len(st) > 1:
+            if to_int:
+                return list(map(lambda x: int(x), st))
+            return st
+        return int(st[0])
+    if string:
+        return str_or_arr(string)
+    return str_or_arr(input())
 
-    if len(nums) < 3:
-        if target in nums:
-            return nums.index(target)
+
+def broken_search(arr, target) -> int:
+    """Бинарный поиск"""
+    if not arr:
         return -1
 
-    def binary_search(arr: list, target: int):
-        """Бинарный поиск"""
-        left = mid = 0
-        right = len(arr) - 1
-        while left <= right:
-            mid = (right + left) // 2
-            if int(arr[mid]) < target:
-                left = mid + 1
-            elif int(arr[mid]) > target:
+    left = 0
+    right = len(arr) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        if arr[mid] >= arr[left]:
+            if arr[left] <= target < arr[mid]:
                 right = mid - 1
             else:
-                return mid
-        return -1
-
-    def get_bad_index(array: list):
-        """Бинарный поиск индекса начала плохой части списка
-        В отличии от простого бинарного поиска, он не ищет искомую цифру
-        А цифру, которая расположена не по возрастанию
-        """
-        left, right = 0, len(array) - 1
-        while left != right-1:
-            mid = (left + right) // 2
-            if int(array[mid]) > int(array[mid+1]):
-                return mid+1
-            if int(array[left]) > int(array[mid]):
-                right = mid
+                left = mid + 1
+        else:
+            if arr[mid] < target <= arr[right]:
+                left = mid + 1
             else:
-                left = mid
-        return -1
+                right = mid - 1
+    return -1
 
-    # Получаем индекс начала плохой части списка
-    bad_i = get_bad_index(nums)
-    if bad_i != -1:
-        found = binary_search(nums[bad_i:], target)
-        if found != -1:
-            return found + bad_i
-        # Сокращаем список с уже проверенными числами
-        nums = nums[:bad_i]
 
-    return binary_search(nums, target)
+if __name__ == '__main__':
+    elements = in_put()
+    target = in_put()
+    arr = in_put()
+    print(broken_search(arr, target))
